@@ -4,11 +4,8 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { SingleCard } from './SingleCard'
 
-interface Props {
-    
-}
 
-export const SwipeCards:FC = (props: Props) => {
+export const SwipeCards:FC = () => {
 
     const [catImages,setCatImages]=useState<null | []>(null)
 
@@ -22,8 +19,8 @@ useEffect(()=>{
         })
 
         
-        const catWithImages=res?.data?.filter((breed:any)=>breed.hasOwnProperty("image"))
-       const fetchedCatImages=catWithImages?.map((breed:any)=>breed.image)
+        const catsWithImages=res?.data?.filter((breed:any)=>breed.hasOwnProperty("image"))
+       const fetchedCatImages=catsWithImages?.map((breed:any)=>breed.image)
        
         setCatImages(fetchedCatImages)
     }
@@ -32,12 +29,12 @@ useEffect(()=>{
 },[])
 
     return (
-        <div>
+        <div className='flex justify-center pt-7 '>
             {
                catImages && catImages.map((image:any,i:number)=>(
-                    <div key={i}>
-<SingleCard  image={image.url} />
-                    </div>
+                    
+<SingleCard key={i}  image={image.url} />
+                
                 ))
             }
             
