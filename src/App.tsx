@@ -1,10 +1,11 @@
 import React from 'react';
-import './App.css';
+import { FC } from 'react';
+import { Navbar } from './components/Navbar';
 
-function App() {
+const App:FC=()=> {
   return (
-    <div className="App">
-   <h1>Tinder clone</h1>
+    <div>
+   <Navbar/>
     </div>
   );
 }
