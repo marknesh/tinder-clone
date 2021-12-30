@@ -18,7 +18,7 @@ export const SingleCard:FC<Props> = ({image}) => {
         
         
         >
-            <img className=' w-11/12 mx-auto    h-[400px]   md:w-[30rem] md:h-[70vh]   rounded-xl     ' src={image} alt="" />
+            <img className=' w-11/12 mx-auto aspect-square   h-[400px]   md:w-[30rem] md:h-[70vh]   rounded-xl     ' src={image} alt="" />
         </TinderCard>
     )
 }

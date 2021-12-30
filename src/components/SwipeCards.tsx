@@ -10,22 +10,29 @@ export const SwipeCards:FC = () => {
 
     
     const [cats,setCats]=useState<null | []>(null)
+    const [loading,setLoading]=useState<boolean>(true)
 
 useEffect(()=>{
 
     const fetchCats=async()=> {
 
 
-        
-        const res= await axios.get("https://api.thecatapi.com/v1/breeds",{
-            headers:{"X-Api-Key":`${process.env.REACT_APP_CAT_API_KEY}`}
-        })
+        try{
+            const res= await axios.get("https://api.thecatapi.com/v1/breeds",{
+                headers:{"X-Api-Key":`${process.env.REACT_APP_CAT_API_KEY}`}
+            })
+            setLoading(false)
+    
+            
+            const catsData=res?.data?.filter((breed:any)=>breed.hasOwnProperty("image"))
+           
+           
+            setCats(shuffle(catsData))
 
-        
-        const catsData=res?.data?.filter((breed:any)=>breed.hasOwnProperty("image"))
+        }catch(err){
+            setLoading(false)
+        }
        
-       
-        setCats(shuffle(catsData))
     }
 
     fetchCats()
@@ -68,9 +75,16 @@ const likePic=()=>{
 }
 
 
+
+
     return (
         <div>
 
+{loading && <div>
+    
+    
+    <h1 className='text-center font-bold text-2xl pt-10'>Fetching cat pictures...</h1>
+    </div> }
             
 
 {
@@ -96,7 +110,7 @@ const likePic=()=>{
 { cats?.length === 0 && <div>
     
     
-    <h1 className='text-center font-bold text-2xl'>No pics available</h1>
+    <h1 className='text-center font-bold text-2xl pt-10'>No pictures available</h1>
     </div>}
             
             {
