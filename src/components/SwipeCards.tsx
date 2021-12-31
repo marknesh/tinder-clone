@@ -25,8 +25,7 @@ useEffect(()=>{
     
             
             const catsData=res?.data?.filter((breed:any)=>breed.hasOwnProperty("image"))
-            
-            
+        
          
             setCats(shuffle(catsData))
 
@@ -63,9 +62,20 @@ function shuffle(array:[]) {
 
 
     const likedCat=newCats.splice(newCats.length-1,1)
-const savedLikedCats=JSON.parse(window.localStorage.getItem("likedCats") as string) 
-    window.localStorage.setItem("likedCats",JSON.stringify([...savedLikedCats,likedCat]))
+
     setCats(newCats as [])
+    
+const savedLikedCats=JSON.parse(window.localStorage.getItem("likedCats") as string) 
+
+
+if(savedLikedCats){
+    window.localStorage.setItem("likedCats",JSON.stringify([...savedLikedCats,...likedCat]))
+}else{
+    window.localStorage.setItem("likedCats",JSON.stringify(likedCat))
+
+}
+    
+    
 }
 
 const handleDislike=()=>{
