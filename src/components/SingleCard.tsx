@@ -2,19 +2,38 @@ import React from 'react'
 import { FC } from 'react'
 import TinderCard from 'react-tinder-card'
 
+type CatsType=[] | null
+
+
 interface Props {
-    
-    image:string
+    key:number;
+    image:string;
+    cats:CatsType;
+    setCats:(cats:CatsType)=> void
 }
 
 
-export const SingleCard:FC<Props> = ({image}) => {
+
+export const SingleCard:FC<Props> = ({image,cats,setCats}) => {
+   
+     
+    const handleOnSwipe=()=>{
+        
+   
+    
+        cats?.splice(cats.length-1,1)
+      
+        setCats(cats as CatsType)
+    }
+    
+    
     return (
         <TinderCard
         
         
         className='absolute   '
         preventSwipe={["up","down"]}
+        onSwipe={handleOnSwipe}
         
         
         >
