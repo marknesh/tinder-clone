@@ -25,8 +25,9 @@ useEffect(()=>{
     
             
             const catsData=res?.data?.filter((breed:any)=>breed.hasOwnProperty("image"))
-           
-           
+            
+            
+         
             setCats(shuffle(catsData))
 
         }catch(err){
@@ -56,13 +57,27 @@ function shuffle(array:[]) {
     return array;
   }
 
-const handleOnSwipe=()=>{
+  const handleLike=()=>{
     
     let newCats=([...cats as []  ])
 
 
-    newCats.splice(newCats.length-1,1)
+    const likedCat=newCats.splice(newCats.length-1,1)
+const savedLikedCats=JSON.parse(window.localStorage.getItem("likedCats") as string) 
+    window.localStorage.setItem("likedCats",JSON.stringify([...savedLikedCats,likedCat]))
+    setCats(newCats as [])
+}
 
+const handleDislike=()=>{
+    
+    let newCats=([...cats as []  ])
+
+
+   const dislikedCat= newCats.splice(newCats.length-1,1)
+
+
+    window.localStorage.setItem("dislikedCats",JSON.stringify(dislikedCat))
+    
     setCats(newCats as [])
 }
 
@@ -83,12 +98,12 @@ const handleOnSwipe=()=>{
                (cats as [])?.length > 0  && 
 
             <div className='fixed bottom-[4vh] space-x-10 flex items-center justify-center mx-auto w-full'>
-<div onClick={handleOnSwipe} className='bg-white text-red-500  hover:text-white  transition-all duration-500 ease-in-out  hover:bg-red-400 rounded-full p-2 cursor-pointer'>
+<div onClick={handleDislike} className='bg-white text-red-500  hover:text-white  transition-all duration-500 ease-in-out  hover:bg-red-400 rounded-full p-2 cursor-pointer'>
 
 <XIcon  className='w-10 h-10 ' />
 </div>
 
-<div onClick={handleOnSwipe} className='bg-[#FE5067]  text-white hover:text-[#FE5067] transition-all duration-500 ease-in-out  hover:bg-white rounded-full cursor-pointer p-2'>
+<div onClick={handleLike} className='bg-[#FE5067]  text-white hover:text-[#FE5067] transition-all duration-500 ease-in-out  hover:bg-white rounded-full cursor-pointer p-2'>
 
 <HeartIcon  className='w-10 h-10  ' />
 </div>
