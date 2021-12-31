@@ -4,14 +4,16 @@ import { useState } from 'react'
 
 export const LikedPics = () => {
 
-const [likedCats,setLikedCats]=useState(JSON.parse(window.localStorage.getItem("likedCats") as string) )
+const [likedCats,setLikedCats]=useState(JSON.parse(window.localStorage.getItem("likedCats") as string)?.reverse() )
     
         
 
     
 
     return (
-        <div className='py-10'>
+        <div className='pb-10'>
+
+            <h1 className='text-3xl font-bold py-10 text-center '>Liked Pictures</h1>
         <div className='grid md:grid-cols-2 xl:grid-cols-4  gap-x-6  mx-auto w-11/12 gap-y-10'>
              
              {

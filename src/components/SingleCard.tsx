@@ -17,11 +17,23 @@ interface Props {
 export const SingleCard:FC<Props> = ({image,cats,setCats}) => {
    
      
-    const handleOnSwipe=()=>{
+    const handleOnSwipe=(e:any)=>{
         
-   
+        const swipedPic:any=cats?.splice(cats.length-1,1)
+   if(e === "right"){
+    const savedLikedCats=JSON.parse(window.localStorage.getItem("likedCats") as string) 
+
+
+    if(savedLikedCats){
+        window.localStorage.setItem("likedCats",JSON.stringify([...savedLikedCats,...swipedPic]))
+    }else{
+        window.localStorage.setItem("likedCats",JSON.stringify(swipedPic))
     
-        cats?.splice(cats.length-1,1)
+    }
+
+   }
+    
+        
       
         setCats(cats as CatsType)
     }
@@ -36,7 +48,9 @@ export const SingleCard:FC<Props> = ({image,cats,setCats}) => {
         onSwipe={handleOnSwipe}
         
         
+        
         >
+            
             <img className=' w-11/12 mx-auto aspect-square   h-[400px]   md:w-[30rem] md:h-[70vh]   rounded-xl     ' src={image} alt="" />
         </TinderCard>
     )
